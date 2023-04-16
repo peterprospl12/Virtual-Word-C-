@@ -71,3 +71,7 @@ Antelope* Antelope::clone(int clonePosX, int clonePosY) const {
 	cloned->decrementAge();
 	return cloned;
 }
+
+Antelope::~Antelope()
+{
+}

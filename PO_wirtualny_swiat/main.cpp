@@ -12,7 +12,7 @@ using std::cin;
 
 
 int main() {
-	World Galactic(10,10);
+	World Galactic(15,10);
 	Galactic.performTurn();
 
 

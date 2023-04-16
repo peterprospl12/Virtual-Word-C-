@@ -14,4 +14,8 @@ public:
 	Human* clone(int clonePosX, int clonePosY) const override;
 	bool collision(Organism* invader) override;
 	int getCooldown();
+	bool getSkillUsed();
+	void setCooldown(int newCD);
+	void setSkillUsed(bool newSkillUsed);
+	~Human();
 };

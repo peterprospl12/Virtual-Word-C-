@@ -47,3 +47,7 @@ void Fox::makeMove(int& newX, int& newY) {
         }
     }
 }
+
+Fox::~Fox()
+{
+}

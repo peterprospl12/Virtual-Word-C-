@@ -43,3 +43,7 @@ void Plant::action() {
 
 
 }
+
+Plant::~Plant()
+{
+}

@@ -31,6 +31,14 @@ int Organism::getInitiative() {
 	return initiative;
 }
 
+char Organism::getPrefix() {
+	return prefix;
+}
+
+string Organism::getName() {
+	return name;
+}
+
 void Organism::incrementAge() {
     this->age++;
 }
@@ -38,7 +46,9 @@ void Organism::incrementAge() {
 void Organism::decrementAge() {
     this->age--;
 }
-
+void Organism::setStrength(int newStrength) {
+	this->strength = newStrength;
+}
 
 
 
@@ -76,6 +86,10 @@ void Organism::setNewPosition(int newX, int newY) {
     currBoard[this->posY][this->posX] = this;
 }
 
+
+void Organism::setAge(int newAge) {
+	this->age = newAge;
+}
 
 bool Organism::hasBlocked(Organism* invader)
 {

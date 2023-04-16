@@ -54,7 +54,9 @@ void Animal::action() {
 
 
 bool Animal::checkMultiply(Animal* defender) {
-    Animal 
+    if (defender == nullptr) {
+        return false;
+    }
     if (typeid(*this) == typeid(*defender)) {
         int newX, newY;
         int tryCount = 0;
@@ -87,3 +89,6 @@ bool Animal::collision(Organism* invader) {
     return false;
 }
 
+Animal::~Animal()
+{
+}

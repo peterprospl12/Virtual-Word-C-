@@ -11,3 +11,7 @@ Sheep* Sheep::clone(int clonePosX, int clonePosY) const {
 	cloned->decrementAge();
 	return cloned;
 }
+
+Sheep::~Sheep() {
+
+}

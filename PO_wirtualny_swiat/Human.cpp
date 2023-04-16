@@ -16,10 +16,10 @@ Human::Human(int posX, int posY, World& currWorld)
 }
 
 void Human::makeMove(int& newX, int& newY) {
-	newX = posX;
-	newY = posY;
+	newX = this->posX;
+	newY = this->posY;
 
-    currWorld.drawWorld();
+    //currWorld.drawWorld();
     int key = 0;
     while (true)
     {
@@ -57,6 +57,14 @@ void Human::makeMove(int& newX, int& newY) {
 				currWorld.getInfoStream() << *this << " used his special skill!" << std::endl;
 				break;
 			}
+        case 'S':
+            currWorld.makeSave();
+            break;
+        case 'L':
+            currWorld.loadSave();
+            newX = this->posX;
+            newY = this->posY;
+            return;
         }
         if (newX != posX || newY != posY) {
             break;
@@ -131,6 +139,22 @@ int Human::getCooldown() {
 	return skillCD;
 }
 
+bool Human::getSkillUsed() {
+    return skillUsed;
+}
+
+void Human::setCooldown(int newCD) {
+	this->skillCD = newCD;
+}
+
+void Human::setSkillUsed(bool newSkillUsed) {
+	this->skillUsed = newSkillUsed;
+}
+
 Human* Human::clone(int clonePosX, int clonePosY) const {
 	return nullptr;
+}
+
+Human::~Human()
+{
 }

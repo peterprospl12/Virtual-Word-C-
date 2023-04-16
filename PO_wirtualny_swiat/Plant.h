@@ -13,5 +13,6 @@ public:
 	void action() override;
 	bool collision(Organism* invader) override;
 	virtual Plant* clone(int clonePosX, int clonePosY) const = 0;
+	~Plant();
 
 };	

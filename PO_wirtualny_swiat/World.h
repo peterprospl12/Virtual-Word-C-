@@ -20,6 +20,7 @@ private:
 	vector<Organism*> organisms;
 	stringstream infoStream ;
 	bool isHumanAlive = false;
+	bool isGameSaved = false;
 public:
 	World(int sizeX, int sizeY);
 	void drawWorld();
@@ -33,6 +34,9 @@ public:
 	void addOrganism(Organism* organism);
 	void removeOrganism(Organism& removedOrganism);
 	static void gotoxy(int x, int y);
+	void makeSave();
+	void loadSave();
+
 	Organism*** getBoard();
 	~World();
 };

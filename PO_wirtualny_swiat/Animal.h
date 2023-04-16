@@ -11,4 +11,5 @@ public:
 	bool checkMultiply(Animal* defender);
 	bool collision(Organism* invader) override;
 	virtual Animal* clone(int clonePosX, int clonePosY) const = 0;
+	~Animal();
 };

@@ -7,4 +7,5 @@ class Grass : public Plant
 public:
 	Grass(int posX, int posY, World& currWorld);
 	Grass* clone(int clonePosX, int clonePosY) const override;
+	~Grass();
 };

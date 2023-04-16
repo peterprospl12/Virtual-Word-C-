@@ -31,7 +31,11 @@ public:
 	int getAge();
 	int getStrength();
 	int getInitiative();
+	char getPrefix();
+	string getName();
+	void setStrength(int newStrength);
 	void setNewPosition(int newX, int newY);
+	void setAge(int newAge);
 	void incrementAge();
 	void decrementAge();
 	friend std::ostream& operator<<(std::ostream& os, const Organism& Organism);

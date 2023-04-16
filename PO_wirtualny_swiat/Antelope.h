@@ -10,4 +10,5 @@ public:
 	void makeMove(int& newX, int& newY) override;
 	bool collision(Organism* invader) override;
 	Antelope* clone(int clonePosX, int clonePosY) const override;
+	~Antelope();
 };

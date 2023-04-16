@@ -11,3 +11,6 @@ Wolf* Wolf::clone(int clonePosX, int clonePosY) const {
 	cloned->decrementAge();
 	return cloned;
 }
+
+Wolf::~Wolf() {
+}
