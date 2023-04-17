@@ -1,8 +1,11 @@
 #include "Sheep.h"
 #include "World.h"
 
+const int SHEEP_STRENGTH = 4;
+const int SHEEP_INITIATIVE = 4;
+
 Sheep::Sheep(int posX, int posY, World& currWorld)
-	:Animal(4, 4, posX, posY, 'S', "Sheep", currWorld)
+	:Animal(SHEEP_STRENGTH, SHEEP_INITIATIVE, posX, posY, 'S', "Sheep", currWorld)
 {
 }
 

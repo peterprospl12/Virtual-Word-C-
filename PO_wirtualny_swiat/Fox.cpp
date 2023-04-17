@@ -1,8 +1,13 @@
 #include "Fox.h"
 #include "World.h"
 #include <chrono>
+
+const int FOX_STRENGTH = 3;
+const int FOX_INITIATIVE = 7;
+
+
 Fox::Fox(int posX, int posY, World& currWorld)
-	:Animal(3, 7, posX, posY, 'F', "Fox", currWorld)
+	:Animal(FOX_STRENGTH, FOX_INITIATIVE, posX, posY, 'F', "Fox", currWorld)
 {
 }
 

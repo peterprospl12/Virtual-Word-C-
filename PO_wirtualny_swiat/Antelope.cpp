@@ -1,15 +1,20 @@
 #include "Antelope.h"
 #include "World.h"
 #include <chrono>
+
+
+const int ANTELOPE_STRENGTH = 4;
+const int ANTELOPE_INITIATIVE = 4;
+
 Antelope::Antelope(int posX, int posY, World& currWorld)
-	:Animal(4, 4, posX, posY, 'A', "Antelope", currWorld)
+	:Animal(ANTELOPE_STRENGTH, ANTELOPE_INITIATIVE, posX, posY, 'A', "Antelope", currWorld)
 {
 }
 
 
 void Antelope::makeMove(int& newX, int& newY) {
-    newX = posX; // aktualna pozycja x zwierzêcia
-    newY = posY; // aktualna pozycja y zwierzêcia
+    newX = posX; 
+    newY = posY; 
     srand(std::chrono::system_clock::now().time_since_epoch().count());
     Organism*** currBoard = currWorld.getBoard();
 
@@ -39,7 +44,7 @@ bool Antelope::collision(Organism* attacker) {
     srand(std::chrono::system_clock::now().time_since_epoch().count());
     int rand_number = rand() % 2;
     
-    // 50% szans na ucieczkê 0 - ucieczka, 1 - walka
+    // 50% chance to escape 0 - escape, 1 - fight
     
     if (rand_number == 0) {
         int newX, newY;

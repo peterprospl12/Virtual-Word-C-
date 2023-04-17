@@ -38,29 +38,34 @@ void World::performTurn() {
 	this->addOrganism(new Grass(9, 9, *this));
 	this->addOrganism(new Dandelion(1, 0, *this));
 	this->addOrganism(new PineBorscht(7, 2, *this));
-	//this->addOrganism(new Wolfberries(7, 1, *this));
-	//this->addOrganism(new Wolfberries(6, 1, *this));
-	//this->addOrganism(new Wolfberries(6, 2, *this));
-	//this->addOrganism(new Wolfberries(6, 3, *this));
-	//this->addOrganism(new Wolfberries(8, 1, *this));
-	//this->addOrganism(new Wolfberries(8, 2, *this));
-	//this->addOrganism(new Wolfberries(8, 3, *this));
-	//this->addOrganism(new Wolfberries(7, 3, *this));
-	this->addOrganism(new Human(1, 1, *this));
-	//this->addOrganism(new Wolf(4, 4, *this));
-	//this->addOrganism(new Fox(4, 0, *this));
-	//this->addOrganism(new Antelope(2, 0, *this));
+	this->addOrganism(new Antelope(7, 1, *this));
+	this->addOrganism(new Antelope(6, 1, *this));
+	this->addOrganism(new Wolf(6, 10, *this));
+	this->addOrganism(new Turtle(10, 3, *this));
+	this->addOrganism(new Sheep(8, 1, *this));
+	this->addOrganism(new Sheep(8, 2, *this));
+	this->addOrganism(new Fox(6, 13, *this));
+	this->addOrganism(new Fox(2, 13, *this));
+	this->addOrganism(new Human(10, 10, *this));
+	this->addOrganism(new Wolf(16, 16, *this));
+	this->addOrganism(new Fox(7, 9, *this));
+	this->addOrganism(new Antelope(7, 7, *this));
+	this->addOrganism(new Wolfberries(13, 2, *this));
+	this->addOrganism(new Guarana(5, 15, *this));
+	this->addOrganism(new Guarana(15, 5, *this));
+
+
 
 	
-	while (isHumanAlive) {
+	while (humanAlive) {
 		this->sortOrganisms();
 		for (int i = 0; i < organisms.size(); i++) {
-			if (!isHumanAlive)
+			if (!humanAlive)
 			{
 				break;
 			}
 
-			if (isGameSaved) {
+			if (gameSaved) {
 				continue;
 			}
 
@@ -74,15 +79,16 @@ void World::performTurn() {
 				currOrg->incrementAge();
 			}
 		}
-		isGameSaved = false;
+		gameSaved = false;
 	}
 	this->drawWorld();
+	cin >> a;
 }
 
 void World::addOrganism(Organism* organism) {
 	if (dynamic_cast<Human*>(organism) != nullptr)
 	{
-		isHumanAlive = true;
+		humanAlive = true;
 	}
 	organisms.emplace_back(organism);
 	board[organism->getPosY()][organism->getPosX()] = organism;
@@ -110,7 +116,7 @@ void World::sortOrganisms() {
 void World::removeOrganism(Organism& removedOrganism) {
 	if (dynamic_cast<Human*>(&removedOrganism) != nullptr)
 	{
-		isHumanAlive = false;
+		humanAlive = false;
 	}
 
 	std::vector<Organism*>::iterator it = std::find(organisms.begin(), organisms.end(), &removedOrganism);
@@ -126,13 +132,13 @@ void World::removeOrganism(Organism& removedOrganism) {
 
 
 
-World::World(int BoardSizeX, int BoardSizeY)
-	:BoardSizeX(BoardSizeX), BoardSizeY(BoardSizeY)
+World::World(int boardSizeX, int boardSizeY)
+	:boardSizeX(boardSizeX), boardSizeY(boardSizeY)
 {
-	board = new Organism**[BoardSizeY];
-	for (int i = 0; i < BoardSizeY; i++) {
-		board[i] = new Organism*[BoardSizeX];
-		for (int j = 0; j < BoardSizeX; j++) {
+	board = new Organism**[boardSizeY];
+	for (int i = 0; i < boardSizeY; i++) {
+		board[i] = new Organism*[boardSizeX];
+		for (int j = 0; j < boardSizeX; j++) {
 			board[i][j] = nullptr; 
 		}
 	}
@@ -140,7 +146,7 @@ World::World(int BoardSizeX, int BoardSizeY)
 }
 
 void World::humanDied() {
-	isHumanAlive = false;
+	humanAlive = false;
 }
 
 void World::drawInfo() {
@@ -169,19 +175,19 @@ void World::drawInfo() {
 void World::drawWorld() {
 	system("cls");
 	gotoxy(studentInfoPosX, studentInfoPosY);
-	cout << "Piotr Sulewski 19254" << endl;
+	cout << "[ Piotr Sulewski 19254 ] " << endl;
 
 
-	for (int i = -1; i < BoardSizeY+1; i++) {
-		for (int j = -1; j < BoardSizeX+1; j++) {
+	for (int i = -1; i < boardSizeY+1; i++) {
+		for (int j = -1; j < boardSizeX+1; j++) {
 			gotoxy(boardPosX + (j * 2) + 2, boardPosY + i + 1);
 			if (j == -1) {
 				cout << "# ";
 			}
-			else if (j == BoardSizeX) {
+			else if (j == boardSizeX) {
 				cout << "#";
 			}
-			else if (i == -1 || i == BoardSizeY) {
+			else if (i == -1 || i == boardSizeY) {
 				cout << "# ";
 			}
 			else {
@@ -189,7 +195,14 @@ void World::drawWorld() {
 					cout << ".";
 				}
 				else {
+					HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+					if (board[i][j]->getPrefix() == 'H') {
+						SetConsoleTextAttribute(hConsole,  FOREGROUND_GREEN);
+					}
 					board[i][j]->draw();
+					SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
+
 				}
 				cout << " ";
 			}
@@ -201,11 +214,11 @@ void World::drawWorld() {
 }
 
 int World::getBoardSizeX() {
-	return BoardSizeX;
+	return boardSizeX;
 }
 
 int World::getBoardSizeY() {
-	return BoardSizeY;
+	return boardSizeY;
 }
 
 Organism*** World::getBoard() {
@@ -235,7 +248,7 @@ void World::makeSave() {
 	std::ofstream saveFile;
 	
 	saveFile.open(filename);
-	saveFile << BoardSizeX << " " << BoardSizeY << endl;
+	saveFile << boardSizeX << " " << boardSizeY << endl;
 	
 	int size = organisms.size();
 	
@@ -255,37 +268,50 @@ void World::makeSave() {
 
 
 void World::loadSave() {
-	//wczytanie z pliku
 	string filename;
+	int sizeX, sizeY;
+	std::ifstream saveFile;
+
+
 	system("cls");
 	cout << "Input filename: ";
+	
 	cin >> filename;
+	
 	drawWorld();
+	
 	filename = filename + ".txt";
-	std::ifstream saveFile;
+	
+	
 	saveFile.open(filename);
-	int sizeX, sizeY;
+	
+	if (!saveFile.is_open()) {
+		return;
+	}
+	
 	saveFile >> sizeX >> sizeY;
-	for (int i = 0; i < BoardSizeY; i++) {
-		for (int j = 0; j < BoardSizeX; j++) {
+	
+	for (int i = 0; i < boardSizeY; i++) {
+		for (int j = 0; j < boardSizeX; j++) {
 			delete board[i][j];
 		}
 		delete[] board[i];
 	}
 	delete[] board;
 	
-	this->BoardSizeX = sizeX;
-	this->BoardSizeY = sizeY;
+	this->boardSizeX = sizeX;
+	this->boardSizeY = sizeY;
 	
-	board = new Organism**[BoardSizeY];
-	for (int i = 0; i < BoardSizeY; i++) {
-		board[i] = new Organism*[BoardSizeX];
-		for (int j = 0; j < BoardSizeX; j++) {
+	board = new Organism**[boardSizeY];
+	for (int i = 0; i < boardSizeY; i++) {
+		board[i] = new Organism*[boardSizeX];
+		for (int j = 0; j < boardSizeX; j++) {
 			board[i][j] = nullptr; 
 		}
 	}
 
 	organisms.clear();
+	
 	int cooldown, skillUsed, strength, posX, posY, age;
 	char prefix;
 
@@ -352,18 +378,18 @@ void World::loadSave() {
 			this->addOrganism(wolfberries);
 		}
 	}
-	this->isGameSaved = true;
+	
+	this->gameSaved = true;
 	saveFile.close();
 	drawWorld();
-	int a;
 
 }
 
 
 
 World::~World() {
-	for (int i = 0; i < BoardSizeY; i++) {
-		for (int j = 0; j < BoardSizeX; j++) {
+	for (int i = 0; i < boardSizeY; i++) {
+		for (int j = 0; j < boardSizeX; j++) {
 			delete board[i][j];
 		}
 		delete[] board[i];

@@ -15,28 +15,35 @@ class World
 {
 private:
 	Organism*** board;
-	int BoardSizeX;
-	int BoardSizeY;
+	int boardSizeX;
+	int boardSizeY;
 	vector<Organism*> organisms;
 	stringstream infoStream ;
-	bool isHumanAlive = false;
-	bool isGameSaved = false;
+	bool humanAlive = false;
+	bool gameSaved = false;
+
+	void sortOrganisms();
 public:
 	World(int sizeX, int sizeY);
+	
 	void drawWorld();
 	void drawInfo();
 	void performTurn();
-	int getBoardSizeX();
-	int getBoardSizeY();
-	void humanDied();
-	stringstream& getInfoStream();
-	void sortOrganisms();
-	void addOrganism(Organism* organism);
-	void removeOrganism(Organism& removedOrganism);
-	static void gotoxy(int x, int y);
+	
 	void makeSave();
 	void loadSave();
 
+	void humanDied();
+	void addOrganism(Organism* organism);
+	void removeOrganism(Organism& removedOrganism);
+
 	Organism*** getBoard();
+	int getBoardSizeX();
+	int getBoardSizeY();
+	stringstream& getInfoStream();
+	
+	static void gotoxy(int x, int y);
+	
+
 	~World();
 };

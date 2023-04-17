@@ -1,8 +1,12 @@
 #include "Turtle.h"
 #include "World.h"
 #include <chrono>
+
+const int TURTLE_STRENGTH = 2;
+const int TURTLE_INITIATIVE = 1;
+
 Turtle::Turtle(int posX, int posY, World& currWorld)
-	:Animal(2, 1, posX, posY, 'T', "Turtle", currWorld)
+	:Animal(TURTLE_STRENGTH, TURTLE_INITIATIVE, posX, posY, 'T', "Turtle", currWorld)
 {
 }
 

@@ -1,8 +1,11 @@
 #include "Wolf.h"
 #include "World.h"
 
+const int WOLF_STRENGTH = 9;
+const int WOLF_INITIATIVE = 5;
+
 Wolf::Wolf(int posX, int posY, World& currWorld)
-	:Animal(9, 5, posX, posY, 'W', "Wolf", currWorld)
+	:Animal(WOLF_STRENGTH, WOLF_INITIATIVE, posX, posY, 'W', "Wolf", currWorld)
 {
 }
 
