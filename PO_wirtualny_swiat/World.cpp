@@ -22,6 +22,7 @@
 #include "Guarana.h"
 #include "Wolfberries.h"
 #include "PineBorscht.h"
+
 using std::cout;
 using std::endl;
 using std::cin;
@@ -33,7 +34,6 @@ const int boardPosY = 5;
 
 
 void World::performTurn() {
-	int a;
 
 	this->addOrganism(new Grass(9, 9, *this));
 	this->addOrganism(new Dandelion(1, 0, *this));
@@ -82,7 +82,6 @@ void World::performTurn() {
 		gameSaved = false;
 	}
 	this->drawWorld();
-	cin >> a;
 }
 
 void World::addOrganism(Organism* organism) {
@@ -242,8 +241,10 @@ void World::gotoxy(int x, int y)
 void World::makeSave() {
 	string filename;
 	system("cls");
+	
 	cout << "Input filename: ";
 	cin >> filename;	
+	
 	filename = filename + ".txt";
 	std::ofstream saveFile;
 	
@@ -262,6 +263,7 @@ void World::makeSave() {
 			<< organisms[i]->getPosY() << " " << organisms[i]->getAge() << " "  << endl;
 			
 	}
+	
 	saveFile.close();
 	drawWorld();
 }

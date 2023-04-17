@@ -15,8 +15,5 @@ int main() {
 	World Galactic(20,20);
 	Galactic.performTurn();
 
-
-	cout << "jajko" << endl;
-
 	return 0;
 }
