@@ -1,5 +1,0 @@
-20 20
-5 1 5 4 1 1 1 H Human
-0 0 9 9 1 G Grass
-0 0 1 0 1 D Dandelion
-10 0 7 2 1 P PineBorscht
