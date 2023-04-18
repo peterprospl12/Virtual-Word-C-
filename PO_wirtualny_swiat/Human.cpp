@@ -52,7 +52,7 @@ void Human::makeMove(int& newX, int& newY) {
         case 'T':
             if (skillCD == 0) {
 				skillUsed = true;
-				skillCD = 10;
+				skillCD = 11;
 				
 				currWorld.getInfoStream() << *this << " used his special skill!" << std::endl;
 			}
@@ -73,11 +73,13 @@ void Human::makeMove(int& newX, int& newY) {
 
     if (skillUsed) {
 		skillCD--;
-        if (skillCD > 5) {
-			skillUsed = false;
+        if (skillCD < 6) {
+            if (skillCD == 0) {
+                skillUsed = false;
+            }
 		}
         else {
-            currWorld.getInfoStream() << *this << " skill is activated for " << skillCD << " turns!" << std::endl;
+            currWorld.getInfoStream() << *this << " skill is activated for " << skillCD-5 << " turns!" << std::endl;
         }
     }
 
@@ -97,16 +99,7 @@ bool Human::collision(Organism* invader) {
     int moves[8][2] = { {0,-1}, {0,1}, {-1,0}, {1,0}, {-1,-1}, {1,-1}, {-1,1}, {1,1} };
 
 
-    if (this->hasBlocked(invader)) {
-        PosToSkipX = invader->getPosX();
-        PosToSkipY = invader->getPosY();
-        currWorld.getInfoStream() << *this << " has killed " << *invader << " with his skill!" << std::endl;
-		currWorld.removeOrganism(*invader);
-    }
-    else {
-		currWorld.removeOrganism(*this);
-        currWorld.humanDied();
-	}
+   
     Organism*** currBoard = currWorld.getBoard();
 
 

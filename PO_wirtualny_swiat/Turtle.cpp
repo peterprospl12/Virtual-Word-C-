@@ -23,7 +23,7 @@ void Turtle::makeMove(int& newX, int& newY) {
 
 bool Turtle::collision(Organism* attacker) {
     if (attacker->getStrength() < 5) {
-        currWorld.getInfoStream() << *this << " has defended itself from " << *attacker << " by using its shell!" << std::endl;
+        currWorld.getInfoStream() << *this << " has defended itself from " << *attacker << " with shell!" << std::endl;
         return true;
 	}
     else {

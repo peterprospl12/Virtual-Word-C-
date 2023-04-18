@@ -55,8 +55,8 @@ void World::performTurn() {
 	this->addOrganism(new Guarana(15, 5, *this));
 
 
-
 	
+
 	while (humanAlive) {
 		this->sortOrganisms();
 		for (int i = 0; i < organisms.size(); i++) {

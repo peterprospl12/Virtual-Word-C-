@@ -26,7 +26,6 @@ void PineBorscht::action() {
 
 			if (AnimalToKill != nullptr) {
 				currWorld.getInfoStream() << *this << " has killed " << *currBoard[PosToKillY][PosToKillX] << std::endl;
-				currWorld.drawWorld();
 				currWorld.removeOrganism(*currBoard[PosToKillY][PosToKillX]);
 			}
 		}
