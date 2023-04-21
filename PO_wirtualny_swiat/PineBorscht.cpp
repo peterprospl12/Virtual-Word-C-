@@ -13,7 +13,6 @@ void PineBorscht::action() {
 	int currPosX = this->posX;
 	int currPosY = this->posY;
 	int PosToKillX, PosToKillY;
-	Organism*** currBoard = currWorld.getBoard();
 	int moves[8][2] = { {0,-1}, {0,1}, {-1,0}, {1,0}, {-1,-1}, {1,-1}, {-1,1}, {1,1} };
 
 	for (int i = 0; i < 8; i++) {
@@ -21,12 +20,12 @@ void PineBorscht::action() {
 		PosToKillY = currPosY + moves[i][1];
 
 		if (PosToKillX >= 0 && PosToKillX < currWorld.getBoardSizeX() && PosToKillY >= 0 && PosToKillY < currWorld.getBoardSizeY()) {
-			Organism* OrgtoKill = currBoard[PosToKillY][PosToKillX];
+			Organism* OrgtoKill = currWorld.getOrganism(PosToKillX, PosToKillY);
 			Animal* AnimalToKill = dynamic_cast<Animal*>(OrgtoKill);
 
 			if (AnimalToKill != nullptr) {
-				currWorld.getInfoStream() << *this << " has killed " << *currBoard[PosToKillY][PosToKillX] << std::endl;
-				currWorld.removeOrganism(*currBoard[PosToKillY][PosToKillX]);
+				currWorld.getInfoStream() << *this << " has killed " << *currWorld.getOrganism(PosToKillX, PosToKillY) << std::endl;
+				currWorld.removeOrganism(*currWorld.getOrganism(PosToKillX, PosToKillY));
 			}
 		}
 

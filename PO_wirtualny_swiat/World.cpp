@@ -35,24 +35,36 @@ const int boardPosY = 5;
 
 void World::performTurn() {
 
+	//plants
 	this->addOrganism(new Grass(9, 9, *this));
 	this->addOrganism(new Dandelion(1, 0, *this));
 	this->addOrganism(new PineBorscht(7, 2, *this));
+	this->addOrganism(new Wolfberries(13, 2, *this));
+	this->addOrganism(new Guarana(5, 13, *this));
+	this->addOrganism(new Guarana(14, 5, *this));
+
+	//animals
 	this->addOrganism(new Antelope(7, 1, *this));
 	this->addOrganism(new Antelope(6, 1, *this));
+	this->addOrganism(new Antelope(7, 7, *this));
+
 	this->addOrganism(new Wolf(6, 10, *this));
+	this->addOrganism(new Wolf(14, 10, *this));
+
 	this->addOrganism(new Turtle(10, 3, *this));
+	
 	this->addOrganism(new Sheep(8, 1, *this));
 	this->addOrganism(new Sheep(8, 2, *this));
+	this->addOrganism(new Sheep(8, 3, *this));
+	this->addOrganism(new Sheep(8, 4, *this));
+
+	
 	this->addOrganism(new Fox(6, 13, *this));
 	this->addOrganism(new Fox(2, 13, *this));
-	this->addOrganism(new Human(10, 10, *this));
-	this->addOrganism(new Wolf(16, 16, *this));
 	this->addOrganism(new Fox(7, 9, *this));
-	this->addOrganism(new Antelope(7, 7, *this));
-	this->addOrganism(new Wolfberries(13, 2, *this));
-	this->addOrganism(new Guarana(5, 15, *this));
-	this->addOrganism(new Guarana(15, 5, *this));
+
+	this->addOrganism(new Human(10, 10, *this));
+
 
 
 	
@@ -150,23 +162,18 @@ void World::humanDied() {
 
 void World::drawInfo() {
 	int infoPosX = boardPosX + getBoardSizeX()*2 + 10;
-	int infoPosY = 0;	
+	int infoPosY = 1;	
 	int size = organisms.size();
-	int infoX = 50;
-	int infoY = 1;
-	//for (int i = 0; i < size; i++) {
-	//	gotoxy(infoPosX, infoPosY+i);
-	//	cout << *organisms[i] << endl;
-	//}
+	
 	std::string line;
 	std::istringstream iss(infoStream.str());
 	while (std::getline(iss, line)) {
-		gotoxy(infoX, infoY);
+		gotoxy(infoPosX, infoPosY);
 		std::cout << line << std::endl;
-		infoY++;
+		infoPosY++;
 	}
 	infoStream.str("");
-	infoY = 1;
+	infoPosY = 1;
 
 }
 
@@ -220,9 +227,6 @@ int World::getBoardSizeY() {
 	return boardSizeY;
 }
 
-Organism*** World::getBoard() {
-	return board;
-}
 
 stringstream& World::getInfoStream() {
 	return infoStream;
@@ -386,6 +390,17 @@ void World::loadSave() {
 	drawWorld();
 
 }
+
+
+void World::setOrganism(Organism* organism, int x, int y) {
+	board[y][x] = organism;
+}
+
+Organism* World::getOrganism(int x, int y) {
+	return board[y][x];
+}
+
+
 
 
 

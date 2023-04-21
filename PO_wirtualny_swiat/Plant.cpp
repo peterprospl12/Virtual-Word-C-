@@ -23,12 +23,11 @@ void Plant::action() {
 	if (rand_number == 2) {
         int newX, newY;
         int tryCount = 0;
-        Organism*** currBoard = currWorld.getBoard();
         srand(std::chrono::system_clock::now().time_since_epoch().count());
         do {
             this->Organism::makeMove(newX, newY);
             tryCount++;
-        } while (currBoard[newY][newX] != nullptr && tryCount < 30);
+        } while (currWorld.getOrganism(newX, newY) != nullptr && tryCount < 30);
         if (tryCount >= 30) {
             return;
         }

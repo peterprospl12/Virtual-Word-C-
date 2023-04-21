@@ -12,7 +12,6 @@ Animal::Animal(int strength, int initiative, int posX, int posY, char prefix, st
 
 void Animal::action() {
     int newX, newY;
-    Organism*** currBoard = currWorld.getBoard();
     std::stringstream& infoStream = currWorld.getInfoStream();
 
     this->makeMove(newX, newY);
@@ -22,8 +21,8 @@ void Animal::action() {
 	}
     
 
-    if (currBoard[newY][newX] != nullptr) {
-        Organism* defender = currBoard[newY][newX];
+    if (currWorld.getOrganism(newX, newY) != nullptr) {
+        Organism* defender = currWorld.getOrganism(newX, newY);
         Animal* animalDefender = dynamic_cast<Animal*>(defender);
         int toDelete = 0;
         if (this->checkMultiply(animalDefender)) {
@@ -41,7 +40,7 @@ void Animal::action() {
         }
         else {
             infoStream << *this << " killed " << *defender << " and moved to (" << newX << "," << newY << ")" << std::endl;
-            currWorld.removeOrganism(*currBoard[newY][newX]);
+            currWorld.removeOrganism(*currWorld.getOrganism(newX, newY));
             this->setNewPosition(newX, newY);
         }
 
@@ -60,7 +59,6 @@ bool Animal::checkMultiply(Animal* defender) {
     if (typeid(*this) == typeid(*defender)) {
         int newX, newY;
         int tryCount = 0;
-        Organism*** currBoard = currWorld.getBoard();
         srand(std::chrono::system_clock::now().time_since_epoch().count());
         do {
             int rand_number = (rand() % 2) + 1;
@@ -71,7 +69,7 @@ bool Animal::checkMultiply(Animal* defender) {
                 this->Organism::makeMove(newX, newY);
             }
             tryCount++;
-        } while (currBoard[newY][newX] != nullptr && tryCount < 30);
+        } while (currWorld.getOrganism(newX, newY) != nullptr && tryCount < 30);
         if (tryCount >= 30) {
             return false;
         }

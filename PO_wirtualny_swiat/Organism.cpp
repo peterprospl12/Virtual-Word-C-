@@ -55,7 +55,7 @@ void Organism::setStrength(int newStrength) {
 void Organism::makeMove(int& newX, int& newY) {
     newX = posX; // aktualna pozycja x zwierzêcia
     newY = posY; // aktualna pozycja y zwierzêcia
-    Organism*** currBoard = currWorld.getBoard();
+
     srand(std::chrono::system_clock::now().time_since_epoch().count());
     int moves[8][2] = { {0,-1}, {0,1}, {-1,0}, {1,0}, {-1,-1}, {1,-1}, {-1,1}, {1,1} };
 
@@ -79,11 +79,10 @@ void Organism::makeMove(int& newX, int& newY) {
 }
 
 void Organism::setNewPosition(int newX, int newY) {
-    Organism*** currBoard = currWorld.getBoard();
-    currBoard[this->posY][this->posX] = nullptr;
+    currWorld.setOrganism(nullptr, this->posX, this->posY);
 	this->posX = newX;
 	this->posY = newY;
-    currBoard[this->posY][this->posX] = this;
+    currWorld.setOrganism(this, this->posX, this->posY);
 }
 
 

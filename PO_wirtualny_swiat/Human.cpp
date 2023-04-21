@@ -50,6 +50,7 @@ void Human::makeMove(int& newX, int& newY) {
             }
             break;
         case 'T':
+        case 't':
             if (skillCD == 0) {
 				skillUsed = true;
 				skillCD = 11;
@@ -58,9 +59,11 @@ void Human::makeMove(int& newX, int& newY) {
 			}
             break;
         case 'S':
+        case 's':
             currWorld.makeSave();
             break;
         case 'L':
+        case 'l':
             currWorld.loadSave();
             newX = this->posX;
             newY = this->posY;
@@ -99,10 +102,6 @@ bool Human::collision(Organism* invader) {
     int moves[8][2] = { {0,-1}, {0,1}, {-1,0}, {1,0}, {-1,-1}, {1,-1}, {-1,1}, {1,1} };
 
 
-   
-    Organism*** currBoard = currWorld.getBoard();
-
-
     for (int i = 0; i < 8; i++) {
         PosToKillX = currPosX + moves[i][0];
 		PosToKillY = currPosY + moves[i][1];
@@ -112,9 +111,9 @@ bool Human::collision(Organism* invader) {
         }
 
         if (PosToKillX >= 0 && PosToKillX < currWorld.getBoardSizeX() && PosToKillY >= 0 && PosToKillY < currWorld.getBoardSizeY()) {
-            if (currBoard[PosToKillY][PosToKillX] != nullptr) {
-                currWorld.getInfoStream() << *this << " has killed " << *currBoard[PosToKillY][PosToKillX] << " with his skill!" << std::endl;
-				currWorld.removeOrganism(*currBoard[PosToKillY][PosToKillX]);
+            if (currWorld.getOrganism(PosToKillX, PosToKillY) != nullptr) {
+                currWorld.getInfoStream() << *this << " has killed " << *currWorld.getOrganism(PosToKillX, PosToKillY) << " with his skill!" << std::endl;
+				currWorld.removeOrganism(*currWorld.getOrganism(PosToKillX, PosToKillY));
 			}
 		}
 

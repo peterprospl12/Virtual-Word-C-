@@ -37,11 +37,11 @@ void Fox::makeMove(int& newX, int& newY) {
             newY += dy;
 
             if (newX != posX || newY != posY) {
-                if (currWorld.getBoard()[newY][newX] == nullptr) {
+                if (currWorld.getOrganism(newX, newY) == nullptr) {
                     break;
                 }
                 else {
-                    if (currWorld.getBoard()[newY][newX]->getStrength() > this->strength) {
+                    if (currWorld.getOrganism(newX, newY)->getStrength() > this->strength) {
                         continue;
                     }
                     else {

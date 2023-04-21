@@ -16,7 +16,6 @@ void Antelope::makeMove(int& newX, int& newY) {
     newX = posX; 
     newY = posY; 
     srand(std::chrono::system_clock::now().time_since_epoch().count());
-    Organism*** currBoard = currWorld.getBoard();
 
     int moves[16][2] = {
         {-2, -2}, {-2, 0}, {-2, 2}, {0, -2}, {0, 2}, {2, -2}, {2, 0}, {2, 2},
@@ -43,7 +42,7 @@ void Antelope::makeMove(int& newX, int& newY) {
 bool Antelope::collision(Organism* attacker) {
     srand(std::chrono::system_clock::now().time_since_epoch().count());
     int rand_number = rand() % 2;
-    
+    int counter = 0;
     // 50% chance to escape 0 - escape, 1 - fight
     
     if (rand_number == 0) {
@@ -54,8 +53,11 @@ bool Antelope::collision(Organism* attacker) {
         do
         {
             this->Organism::makeMove(newX, newY);
-        
-        } while (currWorld.getBoard()[newY][newX] != nullptr);
+            counter++;
+            if (counter > 100) {
+				return false;
+			}
+        } while (currWorld.getOrganism(newX, newY) != nullptr);
         
         
 

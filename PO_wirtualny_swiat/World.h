@@ -37,7 +37,9 @@ public:
 	void addOrganism(Organism* organism);
 	void removeOrganism(Organism& removedOrganism);
 
-	Organism*** getBoard();
+	void setOrganism(Organism* organism, int x, int y);
+	Organism* getOrganism(int x, int y);
+
 	int getBoardSizeX();
 	int getBoardSizeY();
 	stringstream& getInfoStream();
